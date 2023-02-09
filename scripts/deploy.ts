@@ -1,23 +1,27 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+	const [deployer] = await ethers.getSigners();
+	console.log("deployer", deployer.address);
 
-  const lockedAmount = ethers.utils.parseEther("1");
+	const Factory = await ethers.getContractFactory("Factory");
+	const factory_CA = await Factory.deploy();
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+	const GrayToken = await ethers.getContractFactory("Token");
+	const grayToken_CA = await GrayToken.deploy("GrayToken", "GRAY", 1000);
 
-  await lock.deployed();
+	console.log("factory CA address: ", factory_CA.address);
+	console.log("grayToken CA address: ", grayToken_CA.address);
 
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
+	const Exchange = await ethers.getContractFactory("Exchange");
+	const exchange_CA = await Exchange.deploy(grayToken_CA.address);
+
+	console.log("grayExchange CA address: ", exchange_CA.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+	console.error(error);
+	process.exitCode = 1;
 });
