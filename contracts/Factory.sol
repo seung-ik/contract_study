@@ -4,7 +4,7 @@ import "hardhat/console.sol";
 import "./Exchange.sol";
 
 contract Factory {
-  event NewExchange(address indexed token, address indexed exchange);
+  event NewExchange(address indexed token, address exchange);
   
   mapping(address => address) tokenToExchange;
 

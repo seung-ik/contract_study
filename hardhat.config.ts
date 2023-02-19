@@ -6,12 +6,8 @@ const PK = process.env.PK as string;
 const config: HardhatUserConfig = {
 	solidity: "0.8.9",
 	networks: {
-		hardhat: {
-			gas: 10000000,
-			gasPrice: 875000000,
-		},
 		goerli: {
-			url: "https://ethereum-goerli-rpc.allthatnode.com/Ts31EORi6lEQKsUSFxWejFJAeuXq62hV",
+			url: "https://eth-goerli.g.alchemy.com/v2/DclV1nIckLaKzlftg17oaeC2EARw7187",
 			accounts: [PK],
 		},
 	},
