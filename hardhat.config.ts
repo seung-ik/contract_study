@@ -7,9 +7,12 @@ const config: HardhatUserConfig = {
 	solidity: "0.8.9",
 	networks: {
 		goerli: {
-			url: "https://eth-goerli.g.alchemy.com/v2/DclV1nIckLaKzlftg17oaeC2EARw7187",
+			url: `https://eth-goerli.g.alchemy.com/v2/${process.env.GOERLI_ALCHEMY_KEY}`,
 			accounts: [PK],
 		},
+	},
+	etherscan: {
+		apiKey: process.env.ETHERSCAN_API_KEY,
 	},
 };
 
