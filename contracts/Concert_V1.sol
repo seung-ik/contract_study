@@ -1,27 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./TTOT_Factory_V1.sol";
+import "./Factory_V1.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
 
-contract TTOT_Concert_V1 is ERC2981 {
-    TTOT_FACTORY_V1 public ticketFactoryCA;
+contract Concert_V1 is ERC2981 {
+    Factory_V1 public ticketFactoryCA;
 
     enum TicketStatus { waiting, on, off}
     struct TicketInfo {
       string name;
+      uint price;
       uint limitOfDate;
-      uint16 limitOfSeat;
+      uint16 availableSeats;
       TicketStatus status;
     }
-    TicketInfo ticketInfo;
+    TicketInfo public ticketInfo;
 
     RoyaltyInfo private _defaultRoyaltyInfo;
     mapping(uint256 => RoyaltyInfo) private _tokenRoyaltyInfo;
 
-    constructor(uint96 _royaltyFeesInBips, address _nftContractAddress, address _artistAddress, string memory _concertName, uint _limitOfDate, uint16 _limitOfSeat){
-      ticketFactoryCA = TTOT_FACTORY_V1(_nftContractAddress);
-      ticketInfo = TicketInfo(_concertName,_limitOfDate,_limitOfSeat, TicketStatus.on);
+    constructor(uint96 _royaltyFeesInBips, address _nftContractAddress, address _artistAddress, string memory _concertName,uint _price, uint _limitOfDate, uint16 _availableSeats){
+      ticketFactoryCA = FACTORY_V1(_nftContractAddress);
+      ticketInfo = TicketInfo(_concertName, _price, _limitOfDate,_availableSeats, TicketStatus.on);
       _defaultRoyaltyInfo= RoyaltyInfo(_artistAddress, _royaltyFeesInBips);
     }
     
