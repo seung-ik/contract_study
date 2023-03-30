@@ -21,7 +21,7 @@ contract Concert_V1 is ERC2981 {
     mapping(uint256 => RoyaltyInfo) private _tokenRoyaltyInfo;
 
     constructor(uint96 _royaltyFeesInBips, address _nftContractAddress, address _artistAddress, string memory _concertName,uint _price, uint _limitOfDate, uint16 _availableSeats){
-      ticketFactoryCA = FACTORY_V1(_nftContractAddress);
+      ticketFactoryCA = Factory_V1(_nftContractAddress);
       ticketInfo = TicketInfo(_concertName, _price, _limitOfDate,_availableSeats, TicketStatus.on);
       _defaultRoyaltyInfo= RoyaltyInfo(_artistAddress, _royaltyFeesInBips);
     }

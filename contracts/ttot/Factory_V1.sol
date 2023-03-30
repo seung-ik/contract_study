@@ -29,7 +29,7 @@ contract Factory_V1 is ERC721URIStorage{
     Counters.Counter private _tokenIds;
 
     function mintTicket(string memory _tokenURI, address _concertAddr) public payable {
-        (string name,uint price,uint limitOfDate,uint availableSeats,TicketStatus status) = Concert_V1(_concertAddr).ticketInfo();
+        (, uint price,uint limitOfDate,uint availableSeats, ) = Concert_V1(_concertAddr).ticketInfo();
         require(price<=msg.value,"not enough money");
         require(availableSeats>0,"sold out");
         require(limitOfDate>block.timestamp,"over time");
